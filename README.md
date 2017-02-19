@@ -13,7 +13,7 @@ A: Naked twins will happen inside individual unit, so my approach's steps is:
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
 A: I use the same strategy that we use to solve the none diagonal sudoku problem, the only different is
 I append diagonal units to unit list which is also then change the initialization of units and peers.
-So we can apply both eliminate and only choice constraint with diagonal units.
+So we can apply both eliminate and only choice with diagonal constraint units.
 
 ### Install
 
