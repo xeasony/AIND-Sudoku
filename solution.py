@@ -17,6 +17,8 @@ diagonal_units = [[rows[i] + cols[i] for i in range(len(rows))],
                   [rows_reversed[i] + cols[i] for i in range(len(rows_reversed))]]
 
 unitlist = row_units + column_units + square_units
+
+# Add diagonal units to set up diagonal constraints
 unitlist_diagonal = row_units + column_units + square_units + diagonal_units
 units_diagonal = dict((s, [u for u in unitlist_diagonal if s in u]) for s in boxes)
 peers_diagonal = dict((s, set(sum(units_diagonal[s], [])) - set([s])) for s in boxes)
@@ -44,13 +46,15 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
 
-    # Find all instances of naked twins
-    # Eliminate the naked twins as possibilities for their peers
     for unit in unitlist:
         unit_values = [values[box] for box in unit]
+        # Find all naked twins index of individual unit
         twins_indexes = [index for index in range(len(unit_values))
                          if len(unit_values[index]) == 2 and unit_values.count(unit_values[index]) == 2]
         twins_digits = ''.join([unit_values[index] for index in twins_indexes])
+
+        # With all remaining boxes which is not in unit's nake twins boxes
+        # replace box's digits which is in nake twins digits with empty
         for index in range(len(unit)):
             if index not in twins_indexes:
                 for digit in twins_digits:
